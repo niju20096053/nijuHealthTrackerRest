@@ -153,7 +153,7 @@
                     <appName>health-tracker-20096053</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java -jar ./target/nijuHealthTrackerrest-1.0-jar-with-dependencies.jar</web>
+                        <web>java -jar ./target/nijuHealthTrackerRest-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
