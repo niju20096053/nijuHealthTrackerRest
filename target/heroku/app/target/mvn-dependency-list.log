@@ -20,6 +20,7 @@ The following files have been resolved:
    org.postgresql:postgresql:jar:42.2.2:compile
    org.eclipse.jetty:jetty-server:jar:9.4.25.v20191220:compile
    org.eclipse.jetty:jetty-client:jar:9.4.25.v20191220:compile
+   io.github.microutils:kotlin-logging:jar:1.12.5:compile
    org.eclipse.jetty:jetty-security:jar:9.4.25.v20191220:compile
    com.fasterxml.jackson.core:jackson-core:jar:2.10.1:compile
    com.fasterxml.jackson.core:jackson-annotations:jar:2.10.1:compile
