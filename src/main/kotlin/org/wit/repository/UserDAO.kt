@@ -20,7 +20,7 @@ class UserDAO {
     fun findById(id: Int): UserDTO?{
         return transaction {
             Users.select() {
-                Users.id eq id}
+                Users.userid eq id}
                 .map{mapToUserDTO(it)}
                 .firstOrNull()
         }
@@ -29,8 +29,17 @@ class UserDAO {
     fun save(userDTO: UserDTO){
         transaction {
             Users.insert {
-                it[name] = userDTO.name
+                it[firstName] = userDTO.firstName
+                it[lastName] = userDTO.lastName
+                it[gender] = userDTO.gender
                 it[email] = userDTO.email
+                it[mobile] = userDTO.mobile
+                it[age] = userDTO.age
+                it[address] = userDTO.address
+                it[height] = userDTO.height
+                it[weight] = userDTO.weight
+                it[userName] = userDTO.userName
+                it[password] = userDTO.password
             }
         }
     }
@@ -47,7 +56,7 @@ class UserDAO {
     fun delete(id: Int){
         return transaction {
             Users.deleteWhere {
-                Users.id eq id
+                Users.userid eq id
             }
         }
     }
@@ -55,9 +64,18 @@ class UserDAO {
     fun update(id: Int, userDTO: UserDTO){
         transaction {
             Users.update({
-                Users.id eq id}){
-                it[name] = userDTO.name
+                Users.userid eq id}){
+                it[firstName] = userDTO.firstName
+                it[lastName] = userDTO.lastName
+                it[gender] = userDTO.gender
                 it[email] = userDTO.email
+                it[mobile] = userDTO.mobile
+                it[age] = userDTO.age
+                it[address] = userDTO.address
+                it[height] = userDTO.height
+                it[weight] = userDTO.weight
+                it[userName] = userDTO.userName
+                it[password] = userDTO.password
             }
             }
             }

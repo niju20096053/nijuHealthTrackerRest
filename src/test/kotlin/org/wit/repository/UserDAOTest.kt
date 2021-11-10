@@ -11,11 +11,13 @@ import org.junit.jupiter.api.Test
 import org.wit.db.Users
 import org.wit.domain.UserDTO
 import org.wit.helpers.nonExistingEmail
+import java.time.LocalDate
 
 //retrieving some test data from Fixtures
 val user1 = users.get(0)
 val user2 = users.get(1)
 val user3 = users.get(2)
+val user4 = users.get(3)
 
 class UserDAOTest {
 
@@ -35,6 +37,7 @@ class UserDAOTest {
         userDAO.save(user1)
         userDAO.save(user2)
         userDAO.save(user3)
+        userDAO.save(user4)
         return userDAO
     }
 
@@ -48,10 +51,11 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                assertEquals(3, userDAO.getAll().size)
+                assertEquals(4, userDAO.getAll().size)
                 assertEquals(user1, userDAO.findById(user1.id))
                 assertEquals(user2, userDAO.findById(user2.id))
                 assertEquals(user3, userDAO.findById(user3.id))
+                assertEquals(user4, userDAO.findById(user4.id))
             }
         }
     }
@@ -66,7 +70,7 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                assertEquals(3, userDAO.getAll().size)
+                assertEquals(4, userDAO.getAll().size)
             }
         }
 
@@ -140,9 +144,9 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                assertEquals(3, userDAO.getAll().size)
-                userDAO.delete(4)
-                assertEquals(3, userDAO.getAll().size)
+                assertEquals(4, userDAO.getAll().size)
+                userDAO.delete(5)
+                assertEquals(4, userDAO.getAll().size)
             }
         }
 
@@ -154,9 +158,9 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
+                assertEquals(4, userDAO.getAll().size)
+                userDAO.delete(user4.id)
                 assertEquals(3, userDAO.getAll().size)
-                userDAO.delete(user3.id)
-                assertEquals(2, userDAO.getAll().size)
             }
         }
     }
@@ -172,9 +176,10 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                val user3Updated = UserDTO(3, "new username", "new@email.ie")
-                userDAO.update(user3.id, user3Updated)
-                assertEquals(user3Updated, userDAO.findById(3))
+                val user4Updated = UserDTO(4, "new firstName", "new LastName", "male","new@email.ie","1234567890",31, "Hillcrest", 1.71,
+                    80.51,"niju","abc")
+                userDAO.update(user4.id, user4Updated)
+                assertEquals(user4Updated, userDAO.findById(4))
             }
         }
 
@@ -186,10 +191,11 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                val user4Updated = UserDTO(4, "new username", "new@email.ie")
-                userDAO.update(4, user4Updated)
-                assertEquals(null, userDAO.findById(4))
-                assertEquals(3, userDAO.getAll().size)
+                val user5Updated = UserDTO(5, "new firstName", "new LastName", "male","new@email.ie","1234567890",31,"Hillcrest", 1.71,
+                    80.51,"niju","abc")
+                userDAO.update(5, user5Updated)
+                assertEquals(null, userDAO.findById(5))
+                assertEquals(4, userDAO.getAll().size)
             }
         }
     }
