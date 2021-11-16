@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Table
 //       Database wise, this is the table object.
 
 object Users : Table("users") {
-    val userid = integer("userId").autoIncrement().primaryKey()
+    val userId = integer("userId").autoIncrement().primaryKey()
     val firstName = varchar("firstName", 100)
     val lastName = varchar("lastName",100)
     val gender = varchar("gender",10)

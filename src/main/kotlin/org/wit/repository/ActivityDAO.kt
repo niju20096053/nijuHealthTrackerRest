@@ -1,10 +1,10 @@
 package org.wit.repository
 
-import mapToActivityDTO
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.wit.db.Activities
 import org.wit.domain.ActivityDTO
+import mapToActivityDTO
 
 class ActivityDAO {
 

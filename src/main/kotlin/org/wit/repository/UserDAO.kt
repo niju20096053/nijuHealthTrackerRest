@@ -20,7 +20,7 @@ class UserDAO {
     fun findById(id: Int): UserDTO?{
         return transaction {
             Users.select() {
-                Users.userid eq id}
+                Users.userId eq id}
                 .map{mapToUserDTO(it)}
                 .firstOrNull()
         }
@@ -56,7 +56,7 @@ class UserDAO {
     fun delete(id: Int){
         return transaction {
             Users.deleteWhere {
-                Users.userid eq id
+                Users.userId eq id
             }
         }
     }
@@ -64,7 +64,7 @@ class UserDAO {
     fun update(id: Int, userDTO: UserDTO){
         transaction {
             Users.update({
-                Users.userid eq id}){
+                Users.userId eq id}){
                 it[firstName] = userDTO.firstName
                 it[lastName] = userDTO.lastName
                 it[gender] = userDTO.gender

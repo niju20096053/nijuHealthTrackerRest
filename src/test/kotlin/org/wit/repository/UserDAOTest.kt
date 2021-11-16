@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
 import org.wit.db.Users
 import org.wit.domain.UserDTO
 import org.wit.helpers.nonExistingEmail
-import java.time.LocalDate
 
 //retrieving some test data from Fixtures
 val user1 = users.get(0)
@@ -52,10 +51,10 @@ class UserDAOTest {
 
                 //Act & Assert
                 assertEquals(4, userDAO.getAll().size)
-                assertEquals(user1, userDAO.findById(user1.id))
-                assertEquals(user2, userDAO.findById(user2.id))
-                assertEquals(user3, userDAO.findById(user3.id))
-                assertEquals(user4, userDAO.findById(user4.id))
+                assertEquals(user1, userDAO.findById(user1.userId))
+                assertEquals(user2, userDAO.findById(user2.userId))
+                assertEquals(user3, userDAO.findById(user3.userId))
+                assertEquals(user4, userDAO.findById(user4.userId))
             }
         }
     }
@@ -82,7 +81,7 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                assertEquals(null, userDAO.findById(4))
+                assertEquals(null, userDAO.findById(5))
             }
         }
 
@@ -93,7 +92,7 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                assertEquals(null, userDAO.findById(4))
+                assertEquals(user4, userDAO.findById(4))
             }
         }
         @Test
@@ -159,7 +158,7 @@ class UserDAOTest {
 
                 //Act & Assert
                 assertEquals(4, userDAO.getAll().size)
-                userDAO.delete(user4.id)
+                userDAO.delete(user4.userId)
                 assertEquals(3, userDAO.getAll().size)
             }
         }
@@ -178,7 +177,7 @@ class UserDAOTest {
                 //Act & Assert
                 val user4Updated = UserDTO(4, "new firstName", "new LastName", "male","new@email.ie","1234567890",31, "Hillcrest", 1.71,
                     80.51,"niju","abc")
-                userDAO.update(user4.id, user4Updated)
+                userDAO.update(user4.userId, user4Updated)
                 assertEquals(user4Updated, userDAO.findById(4))
             }
         }

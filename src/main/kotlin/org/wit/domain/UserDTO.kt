@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 
 data class UserDTO(
-    var id: Int,
+    var userId: Int,
     var firstName:String,
     var lastName:String,
     var gender:String,
