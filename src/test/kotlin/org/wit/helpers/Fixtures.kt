@@ -21,11 +21,11 @@ val users: ArrayList<UserDTO> = arrayListOf<UserDTO>(
 
 
 val activities: ArrayList<ActivityDTO> = arrayListOf<ActivityDTO>(
-    ActivityDTO(description = "Running",duration = 12.5,calories = 112,started = DateTime.parse("2021-10-12T05:59:27.258Z"),userId = user1.userId, id =1),
+   /* ActivityDTO(description = "Running",duration = 12.5,calories = 112,started = DateTime.parse("2021-10-12T05:59:27.258Z"),userId = user1.userId, id =1),
     ActivityDTO(description = "Walking",duration = 20.2,calories = 230,started = DateTime.parse("2021-10-13T05:59:27.258Z"),userId = user1.userId, id=2),
     ActivityDTO(description = "Running",duration = 8.3,calories = 80,started = DateTime.parse("2021-10-12T05:59:27.258Z"),userId = user2.userId, id=3),
     ActivityDTO(description = "Running",duration = 11.0,calories = 101,started = DateTime.parse("2021-10-12T05:59:27.258Z"),userId = user3.userId, id=4),
     ActivityDTO(description = "Running",duration = 17.3,calories = 145,started = DateTime.parse("2021-10-12T05:59:27.258Z"),userId = user4.userId, id=5),
     ActivityDTO(description = "Jogging",duration = 18.6,calories = 120,started = DateTime.parse("2021-10-14T05:59:27.258Z"),userId = user4.userId, id=6)
-
+*/
 )
