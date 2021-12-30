@@ -89,6 +89,13 @@ val yogas: ArrayList<YogaDTO> = arrayListOf<YogaDTO>(
     YogaDTO(yogaId =4, yogaName = "Yoga4", yogaStart = DateTime.parse("2021-11-12T22:59:27.258Z"), yogaEnd = DateTime.parse("2021-11-13T00:59:27.258Z"), yogaDurationInMinutes = 120, userId = users[3].userId),
 )
 
+val waters: ArrayList<WaterDTO> = arrayListOf<WaterDTO>(
+    WaterDTO(waterId =1, dateTimeOfDrinking = DateTime.parse("2021-11-13T00:59:27.258Z"), quantity = 350, userId = users[0].userId),
+    WaterDTO(waterId =2, dateTimeOfDrinking = DateTime.parse("2021-11-13T00:59:27.258Z"), quantity = 500, userId = users[1].userId),
+    WaterDTO(waterId =3, dateTimeOfDrinking = DateTime.parse("2021-11-13T00:59:27.258Z"), quantity = 270, userId = users[2].userId),
+    WaterDTO(waterId =4, dateTimeOfDrinking = DateTime.parse("2021-11-13T00:59:27.258Z"), quantity = 1200, userId = users[3].userId),
+   )
+
 
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
@@ -151,4 +158,15 @@ fun populateYogaTable(): YogaDAO{
     yogaDAO.save(yogas.get(2))
     yogaDAO.save(yogas.get(3))
     return yogaDAO
+}
+
+fun populateWaterTable(): WaterDAO{
+    SchemaUtils.create(WaterTracker)
+    val waterDAO = WaterDAO()
+    waterDAO.emptyWatersTable()
+    waterDAO.save(waters.get(0))
+    waterDAO.save(waters.get(1))
+    waterDAO.save(waters.get(2))
+    waterDAO.save(waters.get(3))
+    return waterDAO
 }

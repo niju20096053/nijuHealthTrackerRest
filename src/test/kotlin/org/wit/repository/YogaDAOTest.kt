@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.wit.config.DBConfig
-import org.wit.db.MealTracker
+import org.wit.db.YogaTracker
 import org.wit.domain.YogaDTO
 import org.wit.helpers.*
 import kotlin.test.assertEquals
@@ -110,7 +110,7 @@ class YogaDAOTest {
             transaction {
 
                 //Arrange - create and setup yogaDAO object
-                SchemaUtils.create(MealTracker)
+                SchemaUtils.create(YogaTracker)
                 val yogaDAO = YogaDAO()
 
                 //Act & Assert

@@ -41,6 +41,7 @@ class JavalinConfig {
             post("/api/activities", HealthTrackerAPI::addActivity)
             delete("/api/activities/:activity-id", HealthTrackerAPI::deleteActivityByActivityId)
             patch( "/api/activities/:activity-id", HealthTrackerAPI::updateActivity)
+            delete("/api/activities/users/:user-id", HealthTrackerAPI::deleteActivityByUserId)
 
             //Meals
             get("/api/meals/:meal-id", HealthTrackerAPI::getMealsByMealId)
@@ -49,22 +50,35 @@ class JavalinConfig {
             post("/api/meals",HealthTrackerAPI::addMeal)
             delete("/api/meals/:meal-id",HealthTrackerAPI::deleteMealByMealId)
             patch("/api/meals/:meal-id",HealthTrackerAPI::updateMeal)
+            delete("/api/meals/users/:user-id", HealthTrackerAPI::deleteMealsByUserId)
 
             //Sleeps
             get("/api/sleeps/:sleep-id", HealthTrackerAPI::getSleepsBySleepId)
             get("/api/users/:user-id/sleeps",HealthTrackerAPI::getSleepsByUserId)
             get("/api/sleeps", HealthTrackerAPI::getAllSleeps)
             post("/api/sleeps",HealthTrackerAPI::addSleep)
-            delete("/api/sleeps/:sleep-id",HealthTrackerAPI::deleteSleepsByUserId)
+            delete("/api/sleeps/:sleep-id",HealthTrackerAPI::deleteSleepBySleepId)
             patch("/api/sleeps/:sleep-id",HealthTrackerAPI::updateSleep)
+            delete("/api/sleeps/users/:user-id", HealthTrackerAPI::deleteSleepsByUserId)
 
             //Yoga
             get("/api/yogas/:yoga-id", HealthTrackerAPI::getYogasByYogaId)
-            get("/api/users/:user-id/sleeps",HealthTrackerAPI::getSleepsByUserId)
-            get("/api/sleeps", HealthTrackerAPI::getAllSleeps)
-            post("/api/sleeps",HealthTrackerAPI::addSleep)
-            delete("/api/sleeps/:sleep-id",HealthTrackerAPI::deleteSleepsByUserId)
+            get("/api/users/:user-id/yogas",HealthTrackerAPI::getYogasByUserId)
+            get("/api/yogas", HealthTrackerAPI::getAllYogas)
+            post("/api/yogas",HealthTrackerAPI::addYoga)
+            delete("/api/yogas/:yoga-id",HealthTrackerAPI::deleteYogaByYogaId)
             patch("/api/sleeps/:sleep-id",HealthTrackerAPI::updateSleep)
+            delete("/api/yogas/users/:user-id", HealthTrackerAPI::deleteYogasByUserId)
+
+            //Water
+            get("/api/waters/:water-id", HealthTrackerAPI::getWaterByWaterId)
+            get("/api/users/:user-id/waters",HealthTrackerAPI::getWatersByUserId)
+            get("/api/waters", HealthTrackerAPI::getAllWaters)
+            post("/api/waters",HealthTrackerAPI::addWater)
+            delete("/api/waters/:water-id",HealthTrackerAPI::deleteWatersByUserId)
+            patch("/api/waters/:water-id",HealthTrackerAPI::updateWater)
+            delete("/api/waters/users/:user-id", HealthTrackerAPI::deleteWatersByUserId)
+
         }
     }
 }
