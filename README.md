@@ -11,8 +11,8 @@ This app consists of following features
   4. Sleep tracker
   5. Yoga tracker
   6. Water tracker
-  7. Medical conditions tracker
-  8. Family and Friends
-  9. Notifications and Messages
+  7. Goals
+  8. Medical conditions tracker
+  9. Family and Friends
   
 This app is developed using RestAPI services with Kotlin and Vu.

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.wit.repository.DataUploadTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.678 s - in org.wit.repository.DataUploadTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.88 s - in org.wit.repository.DataUploadTest

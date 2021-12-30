@@ -60,3 +60,14 @@ fun mapToWaterDTO(it: ResultRow) = WaterDTO(
     quantity = it[WaterTracker.quantity],
     userId = it[WaterTracker.userId]
 )
+
+fun mapToGoalsDTO(it: ResultRow) = GoalsDTO(
+    goalId = it[Goals.goalId],
+    steps = it[Goals.steps],
+    heartPoints = it[Goals.heartPoints],
+    calories = it[Goals.calories],
+    distance = it[Goals.distance],
+    water = it[Goals.water],
+    sleep = it[Goals.sleep],
+    userId = it[Goals.userId]
+)

@@ -96,6 +96,13 @@ val waters: ArrayList<WaterDTO> = arrayListOf<WaterDTO>(
     WaterDTO(waterId =4, dateTimeOfDrinking = DateTime.parse("2021-11-13T00:59:27.258Z"), quantity = 1200, userId = users[3].userId),
    )
 
+val goals: ArrayList<GoalsDTO> = arrayListOf<GoalsDTO>(
+    GoalsDTO(goalId = 1, steps = 3000, heartPoints = 20, calories = 600, distance = 5, water = 3000, sleep = 450, userId = users[0].userId),
+    GoalsDTO(goalId = 2, steps = 3500, heartPoints = 30, calories = 400, distance = 3, water = 2500, sleep = 500, userId = users[1].userId),
+    GoalsDTO(goalId = 3, steps = 3300, heartPoints = 15, calories = 700, distance = 6, water = 3500, sleep = 400, userId = users[2].userId),
+    GoalsDTO(goalId = 4, steps = 3100, heartPoints = 18, calories = 450, distance = 4, water = 3200, sleep = 420, userId = users[3].userId)
+)
+
 
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
@@ -169,4 +176,15 @@ fun populateWaterTable(): WaterDAO{
     waterDAO.save(waters.get(2))
     waterDAO.save(waters.get(3))
     return waterDAO
+}
+
+fun populateGoalsTable(): GoalsDAO{
+    SchemaUtils.create(Goals)
+    val goalsDAO = GoalsDAO()
+    goalsDAO.emptyGoalsTable()
+    goalsDAO.save(goals.get(0))
+    goalsDAO.save(goals.get(1))
+    goalsDAO.save(goals.get(2))
+    goalsDAO.save(goals.get(3))
+    return goalsDAO
 }

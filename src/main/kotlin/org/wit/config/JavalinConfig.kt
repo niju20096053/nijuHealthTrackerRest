@@ -75,9 +75,18 @@ class JavalinConfig {
             get("/api/users/:user-id/waters",HealthTrackerAPI::getWatersByUserId)
             get("/api/waters", HealthTrackerAPI::getAllWaters)
             post("/api/waters",HealthTrackerAPI::addWater)
-            delete("/api/waters/:water-id",HealthTrackerAPI::deleteWatersByUserId)
+            delete("/api/waters/:water-id",HealthTrackerAPI::deleteWaterByWaterId)
             patch("/api/waters/:water-id",HealthTrackerAPI::updateWater)
             delete("/api/waters/users/:user-id", HealthTrackerAPI::deleteWatersByUserId)
+
+            //Goals
+            get("/api/goals/:goal-id", HealthTrackerAPI::getGoalByGoalId)
+            get("/api/users/:user-id/goals",HealthTrackerAPI::getGoalsByUserId)
+            get("/api/goals", HealthTrackerAPI::getAllGoals)
+            post("/api/goals",HealthTrackerAPI::addGoal)
+            delete("/api/goals/:goal-id",HealthTrackerAPI::deleteGoalByGoalId)
+            patch("/api/goals/:goal-id",HealthTrackerAPI::updateGoal)
+            delete("/api/goals/users/:user-id", HealthTrackerAPI::deleteGoalsByUserId)
 
         }
     }
