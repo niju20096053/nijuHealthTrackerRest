@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: org.wit.controllers.HealthTrackerAPITest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.584 s <<< FAILURE! - in org.wit.controllers.HealthTrackerAPITest
+org.wit.controllers.HealthTrackerAPITest  Time elapsed: 1.581 s  <<< ERROR!
+java.lang.RuntimeException: Port already in use. Make sure no other process is using port 7000 and try again.
+	at org.wit.controllers.HealthTrackerAPITest.<init>(HealthTrackerAPITest.kt:25)
+Caused by: java.io.IOException: Failed to bind to 0.0.0.0/0.0.0.0:7000
+	at org.wit.controllers.HealthTrackerAPITest.<init>(HealthTrackerAPITest.kt:25)
+Caused by: java.net.BindException: Address already in use
+	at org.wit.controllers.HealthTrackerAPITest.<init>(HealthTrackerAPITest.kt:25)
+
