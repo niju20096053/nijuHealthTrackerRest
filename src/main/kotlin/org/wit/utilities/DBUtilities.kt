@@ -1,7 +1,9 @@
 import org.jetbrains.exposed.sql.ResultRow
 import org.wit.db.Activities
+import org.wit.db.MealTracker
 import org.wit.db.Users
 import org.wit.domain.ActivityDTO
+import org.wit.domain.MealDTO
 import org.wit.domain.UserDTO
 
 
@@ -27,4 +29,14 @@ fun mapToActivityDTO(it: ResultRow) = ActivityDTO(
     started = it[Activities.started],
     calories = it[Activities.calories],
     userId = it[Activities.userId]
+)
+
+fun mapToMealDTO(it: ResultRow) = MealDTO(
+    mealId = it[MealTracker.mealId],
+    mealName = it[MealTracker.mealName],
+    mealType = it[MealTracker.mealType],
+    dateTime = it[MealTracker.dateTime],
+    calories = it[MealTracker.calories],
+    quantity = it[MealTracker.quantity],
+    userId = it[MealTracker.userId]
 )

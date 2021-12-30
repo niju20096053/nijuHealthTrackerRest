@@ -3,8 +3,10 @@ package org.wit.helpers
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.joda.time.DateTime
 import org.wit.db.Activities
+import org.wit.db.MealTracker
 import org.wit.db.Users
 import org.wit.domain.ActivityDTO
+import org.wit.domain.MealDTO
 import org.wit.domain.UserDTO
 import org.wit.repository.*
 
@@ -63,6 +65,15 @@ val activities: ArrayList<ActivityDTO> = arrayListOf<ActivityDTO>(
 
 )
 
+val meals: ArrayList<MealDTO> = arrayListOf<MealDTO>(
+    MealDTO(mealId =1, mealName = "Pasta", mealType = "Breakfast", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 80.5, quantity = 210.5, userId = users[0].userId),
+    MealDTO(mealId =2, mealName = "Coffee", mealType = "Drink", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 20.5, quantity = 30.0, userId = users[0].userId),
+    MealDTO(mealId =3, mealName = "Biriyani", mealType = "Lunch", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 300.5, quantity = 500.0, userId = users[1].userId),
+    MealDTO(mealId =4, mealName = "Dosa", mealType = "Dinner", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 80.5, quantity = 210.5, userId = users[2].userId),
+    MealDTO(mealId =5, mealName = "Pasta", mealType = "Breakfast", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 80.5, quantity = 210.5, userId = users[3].userId),
+    MealDTO(mealId =6, mealName = "Chips", mealType = "Snack", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 50.5, quantity = 100.0, userId = users[3].userId),
+)
+
 
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
@@ -88,4 +99,17 @@ fun populateActivityTable(): ActivityDAO {
     activityDAO.save(activities.get(4))
     activityDAO.save(activities.get(5))
     return activityDAO
+}
+
+fun populateMealTable(): MealDAO{
+    SchemaUtils.create(MealTracker)
+    val mealDAO = MealDAO()
+    mealDAO.emptyMealsTable()
+    mealDAO.save(meals.get(0))
+    mealDAO.save(meals.get(1))
+    mealDAO.save(meals.get(2))
+    mealDAO.save(meals.get(3))
+    mealDAO.save(meals.get(4))
+    mealDAO.save(meals.get(5))
+    return mealDAO
 }

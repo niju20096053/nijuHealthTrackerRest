@@ -26,8 +26,9 @@ private val activity6 = activities.get(5)
 
 class ActivityDAOTest {
 
+
     companion object {
-        //Make a connection to a local, in memory H2 database.
+        //Make a connection to a local, in memory H2 database or Heroku postgres database.
         @BeforeAll
         @JvmStatic
         //-------TO BE USED WITH INTERNAL DB----internal fun setupInMemoryDatabaseConnection() {
