@@ -20,6 +20,7 @@ val activity6 = activities.get(5)
 
 class ActivitiesDAOTest {
 
+
     companion object {
 
         //Make a connection to a local, in memory H2 database.
