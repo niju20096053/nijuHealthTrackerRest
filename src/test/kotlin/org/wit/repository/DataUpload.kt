@@ -39,6 +39,7 @@ class DataUploadTest {
                 populateUserTable()
                 populateActivityTable()
                 populateMealTable()
+                populateSleepTable()
         }
         }
     }

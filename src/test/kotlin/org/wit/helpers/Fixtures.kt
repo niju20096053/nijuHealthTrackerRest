@@ -4,9 +4,11 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.joda.time.DateTime
 import org.wit.db.Activities
 import org.wit.db.MealTracker
+import org.wit.db.SleepTracker
 import org.wit.db.Users
 import org.wit.domain.ActivityDTO
 import org.wit.domain.MealDTO
+import org.wit.domain.SleepDTO
 import org.wit.domain.UserDTO
 import org.wit.repository.*
 
@@ -74,6 +76,17 @@ val meals: ArrayList<MealDTO> = arrayListOf<MealDTO>(
     MealDTO(mealId =6, mealName = "Chips", mealType = "Snack", dateTime = DateTime.parse("2021-11-12T05:59:27.258Z"), calories = 50.5, quantity = 100.0, userId = users[3].userId),
 )
 
+val sleeps: ArrayList<SleepDTO> = arrayListOf<SleepDTO>(
+    SleepDTO(sleepTimeId =1, sleepStart = DateTime.parse("2021-11-12T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-13T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[0].userId),
+    SleepDTO(sleepTimeId =2, sleepStart = DateTime.parse("2021-11-13T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-14T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[0].userId),
+    SleepDTO(sleepTimeId =3, sleepStart = DateTime.parse("2021-11-12T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-13T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[1].userId),
+    SleepDTO(sleepTimeId =4, sleepStart = DateTime.parse("2021-11-13T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-14T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[1].userId),
+    SleepDTO(sleepTimeId =5, sleepStart = DateTime.parse("2021-11-12T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-13T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[2].userId),
+    SleepDTO(sleepTimeId =6, sleepStart = DateTime.parse("2021-11-13T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-14T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[2].userId),
+    SleepDTO(sleepTimeId =7, sleepStart = DateTime.parse("2021-11-12T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-13T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[3].userId),
+    SleepDTO(sleepTimeId =8, sleepStart = DateTime.parse("2021-11-13T22:59:27.258Z"), sleepEnd = DateTime.parse("2021-11-14T05:59:27.258Z"), sleepTimeInMinutes = 420, userId = users[3].userId),
+)
+
 
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
@@ -90,9 +103,7 @@ fun populateActivityTable(): ActivityDAO {
     SchemaUtils.create(Activities)
     val activityDAO = ActivityDAO()
     activityDAO.emptyActivityTable()
-    println("Activity 1 : ${activities.get(0)}")
     activityDAO.save(activities.get(0))
-    println("Activity 2 : ${activities.get(1)}")
     activityDAO.save(activities.get(1))
     activityDAO.save(activities.get(2))
     activityDAO.save(activities.get(3))
@@ -112,4 +123,19 @@ fun populateMealTable(): MealDAO{
     mealDAO.save(meals.get(4))
     mealDAO.save(meals.get(5))
     return mealDAO
+}
+
+fun populateSleepTable(): SleepDAO{
+    SchemaUtils.create(SleepTracker)
+    val sleepDAO = SleepDAO()
+    sleepDAO.emptySleepsTable()
+    sleepDAO.save(sleeps.get(0))
+    sleepDAO.save(sleeps.get(1))
+    sleepDAO.save(sleeps.get(2))
+    sleepDAO.save(sleeps.get(3))
+    sleepDAO.save(sleeps.get(4))
+    sleepDAO.save(sleeps.get(5))
+    sleepDAO.save(sleeps.get(6))
+    sleepDAO.save(sleeps.get(7))
+    return sleepDAO
 }
