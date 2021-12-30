@@ -51,7 +51,15 @@ class JavalinConfig {
             patch("/api/meals/:meal-id",HealthTrackerAPI::updateMeal)
 
             //Sleeps
-            get("/api/sleeps/:sleep-id", HealthTrackerAPI::getSleepsByMealId)
+            get("/api/sleeps/:sleep-id", HealthTrackerAPI::getSleepsBySleepId)
+            get("/api/users/:user-id/sleeps",HealthTrackerAPI::getSleepsByUserId)
+            get("/api/sleeps", HealthTrackerAPI::getAllSleeps)
+            post("/api/sleeps",HealthTrackerAPI::addSleep)
+            delete("/api/sleeps/:sleep-id",HealthTrackerAPI::deleteSleepsByUserId)
+            patch("/api/sleeps/:sleep-id",HealthTrackerAPI::updateSleep)
+
+            //Yoga
+            get("/api/yogas/:yoga-id", HealthTrackerAPI::getYogasByYogaId)
             get("/api/users/:user-id/sleeps",HealthTrackerAPI::getSleepsByUserId)
             get("/api/sleeps", HealthTrackerAPI::getAllSleeps)
             post("/api/sleeps",HealthTrackerAPI::addSleep)

@@ -5,14 +5,8 @@ import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.javalin.http.Context
-import org.wit.domain.ActivityDTO
-import org.wit.domain.MealDTO
-import org.wit.domain.SleepDTO
-import org.wit.domain.UserDTO
-import org.wit.repository.ActivityDAO
-import org.wit.repository.MealDAO
-import org.wit.repository.SleepDAO
-import org.wit.repository.UserDAO
+import org.wit.domain.*
+import org.wit.repository.*
 import org.wit.utilities.jsonToObject
 
 // SRP - Responsibility of this API is to manage IO between the DAOs and JSON context
@@ -24,6 +18,8 @@ object HealthTrackerAPI {
     private val activityDAO = ActivityDAO()
     private val mealDAO = MealDAO()
     private val sleepDAO = SleepDAO()
+    private val yogaDAO = YogaDAO()
+
 
     //--------------------------------------------------------------
     // UserDAO specifics
@@ -279,7 +275,7 @@ object HealthTrackerAPI {
         }
     }
 
-    fun getSleepsByMealId(ctx: Context) {
+    fun getSleepsBySleepId(ctx: Context) {
         val sleep = sleepDAO.findBySleepId((ctx.pathParam("sleep-id").toInt()))
         if (sleep != null){
             ctx.json(sleep)
@@ -306,7 +302,7 @@ object HealthTrackerAPI {
         }
     }
 
-    fun deleteMealBySleepId(ctx: Context){
+    fun deleteSleepBySleepId(ctx: Context){
         var id = ctx.pathParam("sleep-id").toInt()
         if (id != 0) {
             sleepDAO.deleteBySleepId(id)
@@ -334,4 +330,86 @@ object HealthTrackerAPI {
         else
             ctx.status(404)
     }
+
+
+    //--------------------------------------------------------------
+    // YogaDAO specifics
+    //-------------------------------------------------------------
+
+    fun getAllYogas(ctx: Context) {
+        ctx.json(yogaDAO.getAll())
+    }
+
+    fun getYogasByUserId(ctx: Context) {
+        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
+            val yogas = yogaDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (yogas.size > 0) {
+                ctx.json(yogas)
+                ctx.status(200)
+            }
+            else{
+                ctx.status(404)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun getYogasByYogaId(ctx: Context) {
+        val yogas = yogaDAO.findByYogaId((ctx.pathParam("yoga-id").toInt()))
+        if (yogas != null){
+            ctx.json(yogas)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun addYoga(ctx: Context) {
+        val yogaDTO : YogaDTO = jsonToObject(ctx.body())
+        val userId = userDao.findById(yogaDTO.userId)
+        if (userId != null) {
+            val yogaId = (yogaDAO.save(yogaDTO)).toString().toInt()
+            if (yogaId != 0) {
+                yogaDTO.yogaId = yogaId
+                ctx.json(yogaDTO)
+                ctx.status(201)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun deleteYogaByYogaId(ctx: Context){
+        var id = ctx.pathParam("yoga-id").toInt()
+        if (id != 0) {
+            yogaDAO.deleteByYogaId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun deleteYogasByUserId(ctx: Context){
+        var id = ctx.pathParam("user-id").toInt()
+        if (id != 0) {
+            yogaDAO.deleteByUserId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun updateYoga(ctx: Context){
+        val yoga : YogaDTO = jsonToObject(ctx.body())
+        var yogaId = ctx.pathParam("yoga-id").toInt()
+        if (yogaId  != 0){
+            yogaDAO.updateByYogaId(yogaId , yoga)
+            ctx.status(204)
+        }
+        else
+            ctx.status(404)
+    }
+
 }

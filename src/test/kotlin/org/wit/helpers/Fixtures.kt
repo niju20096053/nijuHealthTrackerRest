@@ -2,14 +2,8 @@ package org.wit.helpers
 
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.joda.time.DateTime
-import org.wit.db.Activities
-import org.wit.db.MealTracker
-import org.wit.db.SleepTracker
-import org.wit.db.Users
-import org.wit.domain.ActivityDTO
-import org.wit.domain.MealDTO
-import org.wit.domain.SleepDTO
-import org.wit.domain.UserDTO
+import org.wit.db.*
+import org.wit.domain.*
 import org.wit.repository.*
 
 val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
@@ -88,6 +82,14 @@ val sleeps: ArrayList<SleepDTO> = arrayListOf<SleepDTO>(
 )
 
 
+val yogas: ArrayList<YogaDTO> = arrayListOf<YogaDTO>(
+    YogaDTO(yogaId =1, yogaName = "Yoga1", yogaStart = DateTime.parse("2021-11-12T22:59:27.258Z"), yogaEnd = DateTime.parse("2021-11-13T00:59:27.258Z"), yogaDurationInMinutes = 120, userId = users[0].userId),
+    YogaDTO(yogaId =2, yogaName = "Yoga2", yogaStart = DateTime.parse("2021-11-12T22:59:27.258Z"), yogaEnd = DateTime.parse("2021-11-13T00:59:27.258Z"), yogaDurationInMinutes = 120, userId = users[1].userId),
+    YogaDTO(yogaId =3, yogaName = "Yoga3", yogaStart = DateTime.parse("2021-11-12T22:59:27.258Z"), yogaEnd = DateTime.parse("2021-11-13T00:59:27.258Z"), yogaDurationInMinutes = 120, userId = users[2].userId),
+    YogaDTO(yogaId =4, yogaName = "Yoga4", yogaStart = DateTime.parse("2021-11-12T22:59:27.258Z"), yogaEnd = DateTime.parse("2021-11-13T00:59:27.258Z"), yogaDurationInMinutes = 120, userId = users[3].userId),
+)
+
+
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
     val userDAO = UserDAO()
@@ -138,4 +140,15 @@ fun populateSleepTable(): SleepDAO{
     sleepDAO.save(sleeps.get(6))
     sleepDAO.save(sleeps.get(7))
     return sleepDAO
+}
+
+fun populateYogaTable(): YogaDAO{
+    SchemaUtils.create(YogaTracker)
+    val yogaDAO = YogaDAO()
+    yogaDAO.emptyYogasTable()
+    yogaDAO.save(yogas.get(0))
+    yogaDAO.save(yogas.get(1))
+    yogaDAO.save(yogas.get(2))
+    yogaDAO.save(yogas.get(3))
+    return yogaDAO
 }

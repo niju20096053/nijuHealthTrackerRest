@@ -40,6 +40,7 @@ class DataUploadTest {
                 populateActivityTable()
                 populateMealTable()
                 populateSleepTable()
+                populateYogaTable()
         }
         }
     }

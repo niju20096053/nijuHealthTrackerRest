@@ -1,12 +1,6 @@
 import org.jetbrains.exposed.sql.ResultRow
-import org.wit.db.Activities
-import org.wit.db.MealTracker
-import org.wit.db.SleepTracker
-import org.wit.db.Users
-import org.wit.domain.ActivityDTO
-import org.wit.domain.MealDTO
-import org.wit.domain.SleepDTO
-import org.wit.domain.UserDTO
+import org.wit.db.*
+import org.wit.domain.*
 
 
 fun mapToUserDTO(it: ResultRow) = UserDTO(
@@ -49,4 +43,13 @@ fun mapToSleepDTO(it: ResultRow) = SleepDTO(
     sleepEnd = it[SleepTracker.sleepEnd],
     sleepTimeInMinutes = it[SleepTracker.sleepTimeInMinutes],
     userId = it[SleepTracker.userId]
+)
+
+fun mapToYogaDTO(it: ResultRow) = YogaDTO(
+    yogaId = it[YogaTracker.yogaId],
+    yogaName = it[YogaTracker.yogaName],
+    yogaStart = it[YogaTracker.yogaStart],
+    yogaEnd = it[YogaTracker.yogaEnd],
+    yogaDurationInMinutes = it[YogaTracker.yogaDurationInMinutes],
+    userId = it[YogaTracker.userId]
 )
