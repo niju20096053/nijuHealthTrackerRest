@@ -6,8 +6,10 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.javalin.http.Context
 import org.wit.domain.ActivityDTO
+import org.wit.domain.MealDTO
 import org.wit.domain.UserDTO
 import org.wit.repository.ActivityDAO
+import org.wit.repository.MealDAO
 import org.wit.repository.UserDAO
 import org.wit.utilities.jsonToObject
 
@@ -18,6 +20,7 @@ object HealthTrackerAPI {
 
     private val userDao = UserDAO()
     private val activityDAO = ActivityDAO()
+    private val mealDAO = MealDAO()
 
     //--------------------------------------------------------------
     // UserDAO specifics
@@ -161,6 +164,87 @@ object HealthTrackerAPI {
         var activityId = ctx.pathParam("activity-id").toInt()
         if (activityId  != 0){
             activityDAO.updateByActivityId(activityId , activity)
+            ctx.status(204)
+        }
+        else
+            ctx.status(404)
+    }
+
+
+    //--------------------------------------------------------------
+    // MealDAO specifics
+    //-------------------------------------------------------------
+
+    fun getAllMeals(ctx: Context) {
+        ctx.json(mealDAO.getAll())
+    }
+
+    fun getMealsByUserId(ctx: Context) {
+        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
+            val meals = mealDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (meals.size > 0) {
+                ctx.json(meals)
+                ctx.status(200)
+            }
+            else{
+                ctx.status(404)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun getMealsByMealId(ctx: Context) {
+        val meal = mealDAO.findByMealId((ctx.pathParam("meal-id").toInt()))
+        if (meal != null){
+            ctx.json(meal)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun addMeal(ctx: Context) {
+        val mealDTO : MealDTO = jsonToObject(ctx.body())
+        val userId = userDao.findById(mealDTO.userId)
+        if (userId != null) {
+            val mealId = (mealDAO.save(mealDTO)).toString().toInt()
+            if (mealId != 0) {
+                mealDTO.mealId = mealId
+                ctx.json(mealDTO)
+                ctx.status(201)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun deleteMealByMealId(ctx: Context){
+        var id = ctx.pathParam("meal-id").toInt()
+        if (id != 0) {
+            mealDAO.deleteByMealId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun deleteMealsByUserId(ctx: Context){
+        var id = ctx.pathParam("user-id").toInt()
+        if (id != 0) {
+            mealDAO.deleteByUserId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun updateMeal(ctx: Context){
+        val meal : MealDTO = jsonToObject(ctx.body())
+        var mealId = ctx.pathParam("meal-id").toInt()
+        if (mealId  != 0){
+            mealDAO.updateByMealId(mealId , meal)
             ctx.status(204)
         }
         else
