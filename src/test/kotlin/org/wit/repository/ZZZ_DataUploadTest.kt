@@ -35,6 +35,7 @@ class ZZZ_DataUploadTest {
                 populateYogaTable()
                 populateWaterTable()
                 populateGoalsTable()
+                populateHealthConditionTrackerTable()
         }
         }
     }

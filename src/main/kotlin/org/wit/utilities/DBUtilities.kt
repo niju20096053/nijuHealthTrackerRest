@@ -71,3 +71,13 @@ fun mapToGoalsDTO(it: ResultRow) = GoalsDTO(
     sleep = it[Goals.sleep],
     userId = it[Goals.userId]
 )
+
+fun mapToHealthConditionsDTO(it: ResultRow) = HealthConditionDTO(
+    healthConditionId = it[HealthConditionTracker.healthConditionId],
+    pulseRate = it[HealthConditionTracker.pulseRate],
+    bloodPressure = it[HealthConditionTracker.bloodPressure],
+    cholesterol = it[HealthConditionTracker.cholesterol],
+    bloodSugar = it[HealthConditionTracker.bloodSugar],
+    bmi = it[HealthConditionTracker.bmi],
+    userId = it[HealthConditionTracker.userId]
+)

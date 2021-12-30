@@ -103,6 +103,12 @@ val goals: ArrayList<GoalsDTO> = arrayListOf<GoalsDTO>(
     GoalsDTO(goalId = 4, steps = 3100, heartPoints = 18, calories = 450, distance = 4, water = 3200, sleep = 420, userId = users[3].userId)
 )
 
+val healthConditions: ArrayList<HealthConditionDTO> = arrayListOf<HealthConditionDTO>(
+    HealthConditionDTO(healthConditionId = 1, pulseRate = 70, bloodPressure = "120/90", cholesterol = 140, bloodSugar = 110, bmi = 11.5, userId = users[0].userId),
+    HealthConditionDTO(healthConditionId = 2, pulseRate = 72, bloodPressure = "110/90", cholesterol = 180, bloodSugar = 90, bmi = 14.2, userId = users[1].userId),
+    HealthConditionDTO(healthConditionId = 3, pulseRate = 75, bloodPressure = "130/90", cholesterol = 120, bloodSugar = 100, bmi = 16.9, userId = users[2].userId),
+    HealthConditionDTO(healthConditionId = 4, pulseRate = 71, bloodPressure = "120/80", cholesterol = 110, bloodSugar = 80, bmi = 20.0, userId = users[3].userId)
+)
 
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
@@ -187,4 +193,15 @@ fun populateGoalsTable(): GoalsDAO{
     goalsDAO.save(goals.get(2))
     goalsDAO.save(goals.get(3))
     return goalsDAO
+}
+
+fun populateHealthConditionTrackerTable(): HealthConditionDAO{
+    SchemaUtils.create(HealthConditionTracker)
+    val healthConditionDAO = HealthConditionDAO()
+    healthConditionDAO.emptyHealthConditionTable()
+    healthConditionDAO.save(healthConditions.get(0))
+    healthConditionDAO.save(healthConditions.get(1))
+    healthConditionDAO.save(healthConditions.get(2))
+    healthConditionDAO.save(healthConditions.get(3))
+    return healthConditionDAO
 }
