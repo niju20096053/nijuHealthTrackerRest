@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.wit.config.DBConfig
-import org.wit.db.MealTracker
+import org.wit.db.SleepTracker
 import org.wit.domain.SleepDTO
 import org.wit.helpers.*
 import kotlin.test.assertEquals
@@ -116,7 +116,7 @@ class SleepDAOTest {
             transaction {
 
                 //Arrange - create and setup sleepDAO object
-                SchemaUtils.create(MealTracker)
+                SchemaUtils.create(SleepTracker)
                 val sleepDAO = SleepDAO()
 
                 //Act & Assert

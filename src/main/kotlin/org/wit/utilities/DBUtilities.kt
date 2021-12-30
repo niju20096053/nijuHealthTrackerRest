@@ -53,3 +53,10 @@ fun mapToYogaDTO(it: ResultRow) = YogaDTO(
     yogaDurationInMinutes = it[YogaTracker.yogaDurationInMinutes],
     userId = it[YogaTracker.userId]
 )
+
+fun mapToWaterDTO(it: ResultRow) = WaterDTO(
+    waterId = it[WaterTracker.waterId],
+    dateTimeOfDrinking = it[WaterTracker.dateTimeOfDrinking],
+    quantity = it[WaterTracker.quantity],
+    userId = it[WaterTracker.userId]
+)
