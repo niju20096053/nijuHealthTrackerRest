@@ -21,6 +21,7 @@ object HealthTrackerAPI {
     private val yogaDAO = YogaDAO()
     private val waterDAO = WaterDAO()
     private val goalsDAO = GoalsDAO()
+    private val healthConditionDAO = HealthConditionDAO()
 
 
     //--------------------------------------------------------------
@@ -570,6 +571,86 @@ object HealthTrackerAPI {
         var goalId = ctx.pathParam("goal-id").toInt()
         if (goalId  != 0){
             goalsDAO.updateByGoalsId(goalId , goal)
+            ctx.status(204)
+        }
+        else
+            ctx.status(404)
+    }
+
+    //--------------------------------------------------------------
+    // HealthConditionsDAO specifics
+    //-------------------------------------------------------------
+
+    fun getAllHealthCondtions(ctx: Context) {
+        ctx.json(healthConditionDAO.getAll())
+    }
+
+    fun getHealthCondtionByUserId(ctx: Context) {
+        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
+            val healthcondition = healthConditionDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (healthcondition.size > 0) {
+                ctx.json(healthcondition)
+                ctx.status(200)
+            }
+            else{
+                ctx.status(404)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun getHealthConditionByHealthConditionId(ctx: Context) {
+        val healthConditon = healthConditionDAO.findByHealthConditionId((ctx.pathParam("heath-condition-id").toInt()))
+        if (healthConditon != null){
+            ctx.json(healthConditon)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun addHealthCondition(ctx: Context) {
+        val healthConditionDTO : HealthConditionDTO = jsonToObject(ctx.body())
+        val userId = userDao.findById(healthConditionDTO.userId)
+        if (userId != null) {
+            val healthConditionId = (healthConditionDAO.save(healthConditionDTO)).toString().toInt()
+            if (healthConditionId != 0) {
+                healthConditionDTO.healthConditionId = healthConditionId
+                ctx.json(healthConditionDTO)
+                ctx.status(201)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun deleteHealthConditionByHealthConditionId(ctx: Context){
+        var id = ctx.pathParam("health-condition-id").toInt()
+        if (id != 0) {
+            healthConditionDAO.deleteByHealthConditionId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun deleteHealthConditionByUserId(ctx: Context){
+        var id = ctx.pathParam("health-condition-id").toInt()
+        if (id != 0) {
+            healthConditionDAO.deleteByUserId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun updateHealthCondition(ctx: Context){
+        val healthCondition : HealthConditionDTO = jsonToObject(ctx.body())
+        var healthConditionId = ctx.pathParam("health-condition-id").toInt()
+        if (healthConditionId  != 0){
+            healthConditionDAO.updateByHealthConditionId(healthConditionId , healthCondition)
             ctx.status(204)
         }
         else

@@ -88,6 +88,15 @@ class JavalinConfig {
             patch("/api/goals/:goal-id",HealthTrackerAPI::updateGoal)
             delete("/api/goals/users/:user-id", HealthTrackerAPI::deleteGoalsByUserId)
 
+            //Health Conditions
+            get("/api/healths/:health-condition-id", HealthTrackerAPI::getHealthConditionByHealthConditionId)
+            get("/api/healths/:user-id/healths",HealthTrackerAPI::getHealthCondtionByUserId)
+            get("/api/healths", HealthTrackerAPI::getAllHealthCondtions)
+            post("/api/healths",HealthTrackerAPI::addHealthCondition)
+            delete("/api/healths/:health-condition-id",HealthTrackerAPI::deleteHealthConditionByHealthConditionId)
+            patch("/api/healths/:health-condition-id",HealthTrackerAPI::updateHealthCondition)
+            delete("/api/healths/users/:user-id", HealthTrackerAPI::deleteHealthConditionByUserId)
+
         }
     }
 }
