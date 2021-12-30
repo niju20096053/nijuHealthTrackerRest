@@ -42,7 +42,6 @@ class UserDAO {
                 it[userName] = userDTO.userName
                 it[password] = userDTO.password
             } get Users.userId
-            println("UserId in save: "+Users.userId)
         }
     }
 

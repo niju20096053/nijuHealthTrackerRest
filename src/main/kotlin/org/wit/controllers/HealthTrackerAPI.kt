@@ -20,6 +20,7 @@ object HealthTrackerAPI {
     private val sleepDAO = SleepDAO()
     private val yogaDAO = YogaDAO()
     private val waterDAO = WaterDAO()
+    private val goalsDAO = GoalsDAO()
 
 
     //--------------------------------------------------------------
@@ -488,6 +489,87 @@ object HealthTrackerAPI {
         var waterId = ctx.pathParam("water-id").toInt()
         if (waterId  != 0){
             waterDAO.updateByWaterId(waterId , water)
+            ctx.status(204)
+        }
+        else
+            ctx.status(404)
+    }
+
+
+    //--------------------------------------------------------------
+    // GoalsDAO specifics
+    //-------------------------------------------------------------
+
+    fun getAllGoals(ctx: Context) {
+        ctx.json(goalsDAO.getAll())
+    }
+
+    fun getGoalsByUserId(ctx: Context) {
+        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
+            val goals = goalsDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (goals.size > 0) {
+                ctx.json(goals)
+                ctx.status(200)
+            }
+            else{
+                ctx.status(404)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun getGoalByGoalId(ctx: Context) {
+        val goals = goalsDAO.findByGoalsId((ctx.pathParam("goal-id").toInt()))
+        if (goals != null){
+            ctx.json(goals)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun addGoal(ctx: Context) {
+        val goalsDTO : GoalsDTO = jsonToObject(ctx.body())
+        val userId = userDao.findById(goalsDTO.userId)
+        if (userId != null) {
+            val goalId = (goalsDAO.save(goalsDTO)).toString().toInt()
+            if (goalId != 0) {
+                goalsDTO.goalId = goalId
+                ctx.json(goalsDTO)
+                ctx.status(201)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun deleteGoalByGoalId(ctx: Context){
+        var id = ctx.pathParam("goal-id").toInt()
+        if (id != 0) {
+            goalsDAO.deleteByGoalsId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun deleteGoalsByUserId(ctx: Context){
+        var id = ctx.pathParam("goal-id").toInt()
+        if (id != 0) {
+            goalsDAO.deleteByUserId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun updateGoal(ctx: Context){
+        val goal : GoalsDTO = jsonToObject(ctx.body())
+        var goalId = ctx.pathParam("goal-id").toInt()
+        if (goalId  != 0){
+            goalsDAO.updateByGoalsId(goalId , goal)
             ctx.status(204)
         }
         else
