@@ -1,4 +1,104 @@
 -------------------------------------------------------------------------------
 Test set: org.wit.repository.UserDAOTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.431 s - in org.wit.repository.UserDAOTest
+Tests run: 11, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 57.537 s <<< FAILURE! - in org.wit.repository.UserDAOTest
+multiple users added to table can be retrieved successfully  Time elapsed: 5.926 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$CreateUsers.multiple users added to table can be retrieved successfully(UserDAOTest.kt:67)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$CreateUsers.multiple users added to table can be retrieved successfully(UserDAOTest.kt:67)
+
+get user by id that doesn't exist, results in no user returned  Time elapsed: 4.911 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by id that doesn't exist, results in no user returned(UserDAOTest.kt:100)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by id that doesn't exist, results in no user returned(UserDAOTest.kt:100)
+
+get user by email that exists, results in correct user returned  Time elapsed: 5.027 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by email that exists, results in correct user returned(UserDAOTest.kt:151)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by email that exists, results in correct user returned(UserDAOTest.kt:151)
+
+get user by email that doesn't exist, results in no user returned  Time elapsed: 4.964 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by email that doesn't exist, results in no user returned(UserDAOTest.kt:138)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by email that doesn't exist, results in no user returned(UserDAOTest.kt:138)
+
+getting all users from a populated table returns all rows  Time elapsed: 4.853 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.getting all users from a populated table returns all rows(UserDAOTest.kt:87)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.getting all users from a populated table returns all rows(UserDAOTest.kt:87)
+
+get user by id that exists, results in a correct user returned  Time elapsed: 4.856 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by id that exists, results in a correct user returned(UserDAOTest.kt:113)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$ReadUsers.get user by id that exists, results in a correct user returned(UserDAOTest.kt:113)
+
+deleting a non-existant user in table results in no deletion  Time elapsed: 4.957 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$DeleteUsers.deleting a non-existant user in table results in no deletion(UserDAOTest.kt:167)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$DeleteUsers.deleting a non-existant user in table results in no deletion(UserDAOTest.kt:167)
+
+deleting an existing user in table results in record being deleted  Time elapsed: 8.169 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$DeleteUsers.deleting an existing user in table results in record being deleted(UserDAOTest.kt:182)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$DeleteUsers.deleting an existing user in table results in record being deleted(UserDAOTest.kt:182)
+
+updating existing user in table results in successful update  Time elapsed: 4.911 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$UpdateUsers.updating existing user in table results in successful update(UserDAOTest.kt:201)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$UpdateUsers.updating existing user in table results in successful update(UserDAOTest.kt:201)
+
+updating non-existant user in table results in no updates  Time elapsed: 4.82 s  <<< ERROR!
+org.jetbrains.exposed.exceptions.ExposedSQLException: 
+org.postgresql.util.PSQLException: ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$UpdateUsers.updating non-existant user in table results in no updates(UserDAOTest.kt:217)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: null value in column "userId" of relation "users" violates not-null constraint
+  Detail: Failing row contains (null, Alice, Wonderland, Female, alice@wonderland.com, 1234567890, 31, Hillcrest, 1.71, 85.1, alice, ).
+	at org.wit.repository.UserDAOTest$UpdateUsers.updating non-existant user in table results in no updates(UserDAOTest.kt:217)
+

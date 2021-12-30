@@ -8,9 +8,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.wit.config.DBConfig
 import org.wit.db.Users
 import org.wit.domain.UserDTO
+import org.wit.helpers.ServerContainer
 import org.wit.helpers.nonExistingEmail
+import org.wit.helpers.populateUserTable
 
 //retrieving some test data from Fixtures
 val user1 = users.get(0)
@@ -25,25 +28,47 @@ class UserDAOTest {
         //Make a connection to a local, in memory H2 database.
         @BeforeAll
         @JvmStatic
-        internal fun setupInMemoryDatabaseConnection() {
-            Database.connect("jdbc:h2:mem:test", driver = "org.h2.Driver", user = "root", password = "")
+        //-------TO BE USED WITH INTERNAL DB----internal fun setupInMemoryDatabaseConnection() {
+        internal fun setupDatabaseConnection() {
+            val db = DBConfig().getDbConnection()
+            val origin = "https://health-tracker-20096053.herokuapp.com"
+            /* TO BE USED WITH INTERNAL APP
+            val app = ServerContainer.instance
+            val origin = "http://localhost:" + app.port()
+            Database.connect("jdbc:h2:mem:test", driver = "org.h2.Driver", user = "root", password = "")  */
         }
     }
 
-    internal fun populateUserTable(): UserDAO{
+    internal  fun emptyUserTable(){
+        val userDAO = UserDAO()
+        userDAO.emptyUserTable()
+    }
+
+   /* internal fun populateUserTable(): UserDAO{
         SchemaUtils.create(Users)
         val userDAO = UserDAO()
+        userDAO.delete(user1.userId)
+        userDAO.deleteByEmail(user1.email)
         userDAO.save(user1)
+        userDAO.delete(user2.userId)
+        userDAO.deleteByEmail(user2.email)
         userDAO.save(user2)
+        userDAO.delete(user3.userId)
+        userDAO.deleteByEmail(user3.email)
         userDAO.save(user3)
+        userDAO.delete(user4.userId)
+        userDAO.deleteByEmail(user4.email)
         userDAO.save(user4)
         return userDAO
     }
+
+    */
 
     @Nested
     inner class CreateUsers {
         @Test
         fun `multiple users added to table can be retrieved successfully`() {
+
             transaction {
 
                 //Arrange - create and populate table with three users
@@ -56,6 +81,7 @@ class UserDAOTest {
                 assertEquals(user3, userDAO.findById(user3.userId))
                 assertEquals(user4, userDAO.findById(user4.userId))
             }
+            emptyUserTable()
         }
     }
 
@@ -71,6 +97,7 @@ class UserDAOTest {
                 //Act & Assert
                 assertEquals(4, userDAO.getAll().size)
             }
+            emptyUserTable()
         }
 
         @Test
@@ -83,6 +110,7 @@ class UserDAOTest {
                 //Act & Assert
                 assertEquals(null, userDAO.findById(5))
             }
+            emptyUserTable()
         }
 
         @Test
@@ -94,6 +122,7 @@ class UserDAOTest {
                 //Act & Assert
                 assertEquals(user4, userDAO.findById(4))
             }
+            emptyUserTable()
         }
         @Test
         fun `get all users over empty table returns none`() {
@@ -106,6 +135,7 @@ class UserDAOTest {
                 //Act & Assert
                 assertEquals(0, userDAO.getAll().size)
             }
+            emptyUserTable()
         }
 
         @Test
@@ -118,6 +148,7 @@ class UserDAOTest {
                 //Act & Assert
                 assertEquals(null, userDAO.findByEmail(nonExistingEmail))
             }
+            emptyUserTable()
         }
 
         @Test
@@ -130,6 +161,7 @@ class UserDAOTest {
                 //Act & Assert
                 assertEquals(user2, userDAO.findByEmail(user2.email))
             }
+            emptyUserTable()
         }
     }
 
@@ -147,6 +179,7 @@ class UserDAOTest {
                 userDAO.delete(5)
                 assertEquals(4, userDAO.getAll().size)
             }
+            emptyUserTable()
         }
 
         @Test
@@ -161,6 +194,7 @@ class UserDAOTest {
                 userDAO.delete(user4.userId)
                 assertEquals(3, userDAO.getAll().size)
             }
+            emptyUserTable()
         }
     }
 
@@ -180,6 +214,7 @@ class UserDAOTest {
                 userDAO.update(user4.userId, user4Updated)
                 assertEquals(user4Updated, userDAO.findById(4))
             }
+            emptyUserTable()
         }
 
         @Test
@@ -196,6 +231,7 @@ class UserDAOTest {
                 assertEquals(null, userDAO.findById(5))
                 assertEquals(4, userDAO.getAll().size)
             }
+            emptyUserTable()
         }
     }
 }
