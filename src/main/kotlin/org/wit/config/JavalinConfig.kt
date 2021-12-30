@@ -49,6 +49,14 @@ class JavalinConfig {
             post("/api/meals",HealthTrackerAPI::addMeal)
             delete("/api/meals/:meal-id",HealthTrackerAPI::deleteMealByMealId)
             patch("/api/meals/:meal-id",HealthTrackerAPI::updateMeal)
+
+            //Sleeps
+            get("/api/sleeps/:sleep-id", HealthTrackerAPI::getSleepsByMealId)
+            get("/api/users/:user-id/sleeps",HealthTrackerAPI::getSleepsByUserId)
+            get("/api/sleeps", HealthTrackerAPI::getAllSleeps)
+            post("/api/sleeps",HealthTrackerAPI::addSleep)
+            delete("/api/sleeps/:sleep-id",HealthTrackerAPI::deleteSleepsByUserId)
+            patch("/api/sleeps/:sleep-id",HealthTrackerAPI::updateSleep)
         }
     }
 }

@@ -7,9 +7,11 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import io.javalin.http.Context
 import org.wit.domain.ActivityDTO
 import org.wit.domain.MealDTO
+import org.wit.domain.SleepDTO
 import org.wit.domain.UserDTO
 import org.wit.repository.ActivityDAO
 import org.wit.repository.MealDAO
+import org.wit.repository.SleepDAO
 import org.wit.repository.UserDAO
 import org.wit.utilities.jsonToObject
 
@@ -21,6 +23,7 @@ object HealthTrackerAPI {
     private val userDao = UserDAO()
     private val activityDAO = ActivityDAO()
     private val mealDAO = MealDAO()
+    private val sleepDAO = SleepDAO()
 
     //--------------------------------------------------------------
     // UserDAO specifics
@@ -245,6 +248,87 @@ object HealthTrackerAPI {
         var mealId = ctx.pathParam("meal-id").toInt()
         if (mealId  != 0){
             mealDAO.updateByMealId(mealId , meal)
+            ctx.status(204)
+        }
+        else
+            ctx.status(404)
+    }
+
+
+    //--------------------------------------------------------------
+    // SleepDAO specifics
+    //-------------------------------------------------------------
+
+    fun getAllSleeps(ctx: Context) {
+        ctx.json(sleepDAO.getAll())
+    }
+
+    fun getSleepsByUserId(ctx: Context) {
+        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
+            val sleeps = sleepDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (sleeps.size > 0) {
+                ctx.json(sleeps)
+                ctx.status(200)
+            }
+            else{
+                ctx.status(404)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun getSleepsByMealId(ctx: Context) {
+        val sleep = sleepDAO.findBySleepId((ctx.pathParam("sleep-id").toInt()))
+        if (sleep != null){
+            ctx.json(sleep)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun addSleep(ctx: Context) {
+        val sleepDTO : SleepDTO = jsonToObject(ctx.body())
+        val userId = userDao.findById(sleepDTO.userId)
+        if (userId != null) {
+            val sleepTimeId = (sleepDAO.save(sleepDTO)).toString().toInt()
+            if (sleepTimeId != 0) {
+                sleepDTO.sleepTimeId = sleepTimeId
+                ctx.json(sleepDTO)
+                ctx.status(201)
+            }
+        }
+        else{
+            ctx.status(404)
+        }
+    }
+
+    fun deleteMealBySleepId(ctx: Context){
+        var id = ctx.pathParam("sleep-id").toInt()
+        if (id != 0) {
+            sleepDAO.deleteBySleepId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun deleteSleepsByUserId(ctx: Context){
+        var id = ctx.pathParam("user-id").toInt()
+        if (id != 0) {
+            sleepDAO.deleteByUserId(id)
+            ctx.status(204)
+        }else
+            ctx.status(404)
+    }
+
+    fun updateSleep(ctx: Context){
+        val sleep : SleepDTO = jsonToObject(ctx.body())
+        var sleepId = ctx.pathParam("sleep-id").toInt()
+        if (sleepId  != 0){
+            sleepDAO.updateBySleepId(sleepId , sleep)
             ctx.status(204)
         }
         else
