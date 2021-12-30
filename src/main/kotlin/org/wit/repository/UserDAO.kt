@@ -27,8 +27,9 @@ class UserDAO {
     }
 
     fun save(userDTO: UserDTO){
-        transaction {
+        return transaction {
             Users.insert {
+                it[userId] = userDTO.userId
                 it[firstName] = userDTO.firstName
                 it[lastName] = userDTO.lastName
                 it[gender] = userDTO.gender
@@ -40,16 +41,24 @@ class UserDAO {
                 it[weight] = userDTO.weight
                 it[userName] = userDTO.userName
                 it[password] = userDTO.password
-            }
+            } get Users.userId
+            println("UserId in save: "+Users.userId)
         }
     }
 
     fun findByEmail(email: String) :UserDTO?{
+        println("Email in findByEmail: $email")
         return transaction {
             Users.select() {
                 Users.email eq email}
                 .map{mapToUserDTO(it)}
                 .firstOrNull()
+        }
+    }
+
+    fun emptyUserTable(){
+        return transaction {
+            Users.deleteAll()
         }
     }
 
@@ -61,8 +70,16 @@ class UserDAO {
         }
     }
 
+    fun deleteByEmail(email: String){
+        return transaction {
+            Users.deleteWhere {
+                Users.email eq email
+            }
+        }
+    }
+
     fun update(id: Int, userDTO: UserDTO){
-        transaction {
+        return transaction {
             Users.update({
                 Users.userId eq id}){
                 it[firstName] = userDTO.firstName

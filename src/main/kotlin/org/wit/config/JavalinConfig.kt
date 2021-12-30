@@ -34,8 +34,11 @@ class JavalinConfig {
             patch("/api/users/:user-id", HealthTrackerAPI::updateUser)
 
             get("/api/users/:user-id/activities", HealthTrackerAPI::getActivitiesByUserId)
+            get("/api/:activity-id", HealthTrackerAPI::getActivitiesByActivityId)
             get("/api/activities", HealthTrackerAPI::getAllActivities)
             post("/api/activities", HealthTrackerAPI::addActivity)
+            delete("/api/activities/:activity-id", HealthTrackerAPI::deleteActivityByActivityId)
+            patch( "/api/activities/:activity-id", HealthTrackerAPI::updateActivity)
         }
     }
 }

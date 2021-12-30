@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: org.wit.repository.ActivitiesDAOTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.032 s <<< FAILURE! - in org.wit.repository.ActivitiesDAOTest
+multiple activities added to table can be retrieved successfully  Time elapsed: 0.03 s  <<< ERROR!
+java.lang.ExceptionInInitializerError
+	at org.wit.repository.ActivitiesDAOTest.populateUserTable$nijuHealthTrackerRest(ActivitiesDAOTest.kt:36)
+	at org.wit.repository.ActivitiesDAOTest.multiple activities added to table can be retrieved successfully(ActivitiesDAOTest.kt:48)
+Caused by: java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at org.wit.repository.ActivitiesDAOTest.populateUserTable$nijuHealthTrackerRest(ActivitiesDAOTest.kt:36)
+	at org.wit.repository.ActivitiesDAOTest.multiple activities added to table can be retrieved successfully(ActivitiesDAOTest.kt:48)
+

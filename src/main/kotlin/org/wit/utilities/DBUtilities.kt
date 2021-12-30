@@ -21,7 +21,7 @@ fun mapToUserDTO(it: ResultRow) = UserDTO(
 )
 
 fun mapToActivityDTO(it: ResultRow) = ActivityDTO(
-    id = it[Activities.id],
+    activityId = it[Activities.activityId],
     description = it[Activities.description],
     duration = it[Activities.duration],
     started = it[Activities.started],
