@@ -28,19 +28,73 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="input-user-id">User ID</span>
             </div>
-            <input type="number" class="form-control" v-model="user.id" name="id" readonly placeholder="Id"/>
+            <input type="number" class="form-control" v-model="user.userId" name="id" readonly placeholder="Id"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-name">Name</span>
+              <span class="input-group-text" id="input-user-first-name">First Name</span>
             </div>
-            <input type="text" class="form-control" v-model="user.name" name="name" placeholder="Name"/>
+            <input type="text" class="form-control" v-model="user.firstName" name="firstName" placeholder="First Name"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-email">Email</span>
+                <span class="input-group-text" id="input-user-last-name">Last Name</span>
             </div>
-            <input type="email" class="form-control" v-model="user.email" name="email" placeholder="Email"/>
+              <input type="text" class="form-control" v-model="user.lastName" name="lastName" placeholder="Last Name"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-gender">Gender</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.gender" name="gender" placeholder="Gender"/>
+          </div>
+          <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="input-user-email">Email</span>
+                </div>
+                <input type="text" class="form-control" v-model="user.email" name="email" placeholder="Email"/>
+          </div>
+          <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="input-user-mobile">Mobile</span>
+                  </div>
+                  <input type="text" class="form-control" v-model="user.mobile" name="mobile" placeholder="Mobile"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-age">Age</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.age" name="age" placeholder="Age"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-address">Address</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.address" name="address" placeholder="Address"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-height">Height</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.height" name="height" placeholder="Height"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-weight">Weight</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.weight" name="weight" placeholder="Weight"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-userName">User Name</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.userName" name="userName" placeholder="User Name"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-password">Password</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.password" name="password" placeholder="Password"/>
           </div>
         </form>
       </div>
@@ -64,6 +118,7 @@ Vue.component("user-profile", {
     user: null,
     noUserFound: false,
     activities: [],
+    meals: []
   }),
   created: function () {
     const userId = this.$javalin.pathParams["user-id"];
@@ -79,6 +134,11 @@ Vue.component("user-profile", {
         .catch(error => {
           console.log("No activities added yet (this is ok): " + error)
         })
+    axios.get(url + `/meals`)
+        .then(res => this.meals = res.data)
+        .catch(error => {
+          console.log("No meals added yet (this is ok): " + error)
+        })
   },
   methods: {
     updateUser: function () {
@@ -86,8 +146,17 @@ Vue.component("user-profile", {
       const url = `/api/users/${userId}`
       axios.patch(url,
           {
-            name: this.user.name,
-            email: this.user.email
+            firstName: this.formData.firstName,
+            lastName: this.formData.lastName,
+            gender: this.formData.gender,
+            email: this.formData.email,
+            mobile: this.formDate.mobile,
+            age: this.formData.age,
+            address: this.formData.address,
+            height: this.formData.height,
+            weight: this.formData.weight,
+            userName: this.formData.userName,
+            password: this.formData.password
           })
           .then(response =>
               this.user.push(response.data))

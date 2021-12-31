@@ -84,6 +84,17 @@ object HealthTrackerAPI {
             ctx.status(404)
     }
 
+    fun deleteUserByEmail(ctx: Context){
+        val email =ctx.pathParam("email-id").toString()
+        if (email != null) {
+            val returnVal = userDao.deleteByEmail(email)
+            if(returnVal != null){
+                ctx.status(204)
+            }
+        }else
+            ctx.status(404)
+    }
+
     fun updateUser(ctx: Context){
         val user : UserDTO = jsonToObject(ctx.body())
         if ((userDao.update(id = ctx.pathParam("user-id").toInt(), userDTO=user)) != null)

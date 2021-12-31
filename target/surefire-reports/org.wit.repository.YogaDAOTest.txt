@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.wit.repository.YogaDAOTest
 -------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 52.248 s - in org.wit.repository.YogaDAOTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 51.43 s - in org.wit.repository.YogaDAOTest

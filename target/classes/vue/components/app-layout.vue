@@ -20,6 +20,24 @@
             <li class="nav-item">
               <a class="nav-link" href="/activities">Activities</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/meals">Meals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sleeps">Sleeps</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/yogas">Yogas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/waters">Waters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/goals">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/healths">Health Conditions</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -41,6 +59,12 @@ Vue.component("app-layout", {template: "#app-layout"});
 
 <style>
 .navbar{
-  background-color: #e3f2fd;
+  background-color: #ef862f;
+}
+.app-layout{
+  background-color: #ef862f;
+}
+.nav-link{
+  font-weight: bolder;
 }
 </style>

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.wit.repository.GoalsDAOTest
 -------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 51.557 s - in org.wit.repository.GoalsDAOTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 51.939 s - in org.wit.repository.GoalsDAOTest

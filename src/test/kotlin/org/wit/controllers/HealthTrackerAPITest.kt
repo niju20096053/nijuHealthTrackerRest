@@ -20,10 +20,10 @@ import org.wit.utilities.jsonToObjectWithDate
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HealthTrackerAPITest {
-/*
+
     private val db = DBConfig().getDbConnection()
-    private val app = ServerContainer.instance
-    private val origin = "http://localhost:" + app.port()
+    //private val app = ServerContainer.instance
+    private val origin = "http://localhost:7001" //+ app.port()
 
     @Nested
     inner class CreateUsers {
@@ -372,7 +372,7 @@ println("User: "+retrievedUserExisting+"  , user id: "+retrievedUserExisting.use
             val addedActivity = jsonToObjectWithDate(addActivityResponse, ActivityDTO::class.java)
 
             //Act & Assert - retrieve the activity by activity id
-            val response = retrieveActivityByActivityId(addedActivity.id)
+            val response = retrieveActivityByActivityId(addedActivity.activityId)
             assertEquals(200, response.status)
 
             //After - delete the added user and assert a 204 is returned
@@ -415,12 +415,12 @@ println("User: "+retrievedUserExisting+"  , user id: "+retrievedUserExisting.use
             val addedActivity = jsonToObjectWithDate(addActivityResponse, ActivityDTO::class.java)
 
             //Act & Assert - update the added activity and assert a 204 is returned
-            val updatedActivityResponse = updateActivity(addedActivity.id, updatedDescription,
+            val updatedActivityResponse = updateActivity(addedActivity.activityId, updatedDescription,
                 updatedDuration, updatedCalories, updatedStarted, addedUser.userId)
             assertEquals(204, updatedActivityResponse.status)
 
             //Assert that the individual fields were all updated as expected
-            val retrievedActivityResponse = retrieveActivityByActivityId(addedActivity.id)
+            val retrievedActivityResponse = retrieveActivityByActivityId(addedActivity.activityId)
             val updatedActivity = jsonToObjectWithDate(retrievedActivityResponse, ActivityDTO::class.java)
             assertEquals(updatedDescription,updatedActivity.description)
             assertEquals(updatedDuration, updatedActivity.duration, 0.1)
@@ -466,7 +466,7 @@ println("User: "+retrievedUserExisting+"  , user id: "+retrievedUserExisting.use
 
             //Act & Assert - delete the added activity and assert a 204 is returned
             val addedActivity = jsonToObjectWithDate(addActivityResponse, ActivityDTO::class.java)
-            assertEquals(204, deleteActivityByActivityId(addedActivity.id).status)
+            assertEquals(204, deleteActivityByActivityId(addedActivity.activityId).status)
 
             //After - delete the user
             deleteUser(addedUser.userId)
@@ -500,9 +500,9 @@ println("User: "+retrievedUserExisting+"  , user id: "+retrievedUserExisting.use
             val addedActivity1 = jsonToObjectWithDate(addActivityResponse1, ActivityDTO::class.java)
             val addedActivity2 = jsonToObjectWithDate(addActivityResponse2, ActivityDTO::class.java)
             val addedActivity3 = jsonToObjectWithDate(addActivityResponse3, ActivityDTO::class.java)
-            assertEquals(404, retrieveActivityByActivityId(addedActivity1.id).status)
-            assertEquals(404, retrieveActivityByActivityId(addedActivity2.id).status)
-            assertEquals(404, retrieveActivityByActivityId(addedActivity3.id).status)
+            assertEquals(404, retrieveActivityByActivityId(addedActivity1.activityId).status)
+            assertEquals(404, retrieveActivityByActivityId(addedActivity2.activityId).status)
+            assertEquals(404, retrieveActivityByActivityId(addedActivity3.activityId).status)
         }
     }
 
@@ -596,5 +596,5 @@ println("User: "+retrievedUserExisting+"  , user id: "+retrievedUserExisting.use
             .asJson()
     }
 
- */
+
 }
