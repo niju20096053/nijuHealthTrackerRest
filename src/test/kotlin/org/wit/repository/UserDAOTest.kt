@@ -196,6 +196,36 @@ class UserDAOTest {
             }
             emptyUserTable()
         }
+
+        @Test
+        fun `deleting a non-existant user in table using email results in no deletion`() {
+            transaction {
+
+                //Arrange - create and populate table with three users
+                val userDAO = populateUserTable()
+
+                //Act & Assert
+                assertEquals(4, userDAO.getAll().size)
+                userDAO.deleteByEmail(nonExistingEmail)
+                assertEquals(4, userDAO.getAll().size)
+            }
+            emptyUserTable()
+        }
+
+        @Test
+        fun `deleting an existing user in table using email results in record being deleted`() {
+            transaction {
+
+                //Arrange - create and populate table with three users
+                val userDAO = populateUserTable()
+
+                //Act & Assert
+                assertEquals(4, userDAO.getAll().size)
+                userDAO.deleteByEmail(user4.email)
+                assertEquals(3, userDAO.getAll().size)
+            }
+            emptyUserTable()
+        }
     }
 
     @Nested
